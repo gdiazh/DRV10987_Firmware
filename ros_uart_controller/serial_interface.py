@@ -21,10 +21,10 @@ class serialInterface(object):
 
     def initialize(self):
         # TO DO: check serial port
-        print("Conection succed! starting comunication ...")
+        self.DEBUG_PRINT("info", "Conection succed! starting comunication ...")
 
     def stop(self):
-        print("Conection Finish. Closing ports ...")
+        self.DEBUG_PRINT("info", "Conection Finish. Closing ports ...")
         self.arduino.close()
 
     def reset(self):

@@ -16,6 +16,6 @@ and ROS-Python Serial - UART Interface/Controller
 * Quick Test
 	* Go to `ros_uart_controller/` folfer and run
 	```python
-	python3 python3 uart_speed_step.py
+	python3 uart_speed_step.py
 	```
 	* Type `dummy` for file name when the script request it 

@@ -56,6 +56,7 @@ class DRV10987Controller:
                 if time > self.stop_time and not(step_stoped):
                     self.serial_trx.write(1, 0)
                     step_stoped = True
+        self.serial_trx.stop()
         print(chr(27)+"[1;31m"+"Test Finished"+chr(27)+"[0m")
 
 if __name__ == '__main__':
@@ -70,12 +71,13 @@ if __name__ == '__main__':
         test_specs = None
     else:
         print("Specify Test conditions")
-        default_conf = input("Used default configuration (used only if you are sure) y/n?: ")
+        default_conf = input(chr(27)+"[0;33m"+"Used default configuration (used only if you are sure) y/n?: "+chr(27)+"[0m")
         if default_conf == "y":
             folder = "data/steps/"
             brief = "Brief: Speed step input to drv through uart"
             motor_type = "Motor type (dvd/HDD/Other): dvd"
             flywheel_type = "Flywheel type (medium/rods/small/No): No"
+            motor_alignment = "Motor Rot. Axis alignment (vertical/horizontal): horizontal"
             stop_time = "8"
             step_value = input("Step value[cmd](Sugested > 60): ")
             coasting_time = "2"
@@ -84,6 +86,7 @@ if __name__ == '__main__':
             brief = "Brief: " + input("Brief: ")
             motor_type = "Motor type (dvd/HDD/Other): " + input("Motor type (dvd/HDD/Other): ")
             flywheel_type = "Flywheel type (medium/rods/small/No): " + input("Flywheel type (medium/rods/small/No): ")
+            motor_alignment = "Motor Rot. Axis alignment (vertical/horizontal): " + input("Motor Rot. Axis alignment (vertical/horizontal): ")
             stop_time = input("Stop time[s](Sugested > 7): ")
             step_value = input("Step value[cmd](Sugested > 60): ")
             coasting_time = input("Coasting time[s](Sugested > 1): ")
@@ -91,6 +94,7 @@ if __name__ == '__main__':
         test_specs = [brief,
                       motor_type,
                       flywheel_type,
+                      motor_alignment,
                       "Stop time[s]: " + stop_time,
                       "Step value[cmd]: " + step_value,
                       "Coasting time[s]: " + coasting_time]
@@ -104,7 +108,7 @@ if __name__ == '__main__':
                 test_specs.append(param)
                 ans = input("Add specification? y/n: ")
     # Start test
-    print("Starting Speed-Step Input DRV10987 Test")
+    print(chr(27)+"[0;34m"+"Running Speed-Step Input DRV10987 Test ..."+chr(27)+"[0m")
     controller = DRV10987Controller(port, baud, folder, test_name, test_params, test_specs)
     controller.initialize()
     controller.step()

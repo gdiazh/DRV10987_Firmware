@@ -93,6 +93,7 @@ class DRV10987Controller:
                     self.serial_trx.write(1, 0)
                     step_stoped = True
             rate.sleep()
+        self.serial_trx.stop()
         print(chr(27)+"[1;31m"+"Test Finished"+chr(27)+"[0m")
         rospy.signal_shutdown("Shutdown Node")
 
@@ -143,7 +144,7 @@ if __name__ == '__main__':
                 test_specs.append(param)
                 ans = input("Add specification? y/n: ")
     # Start test
-    print("Starting Speed-Step Input DRV10987 Test")
+    print(chr(27)+"[0;34m"+"Starting Speed-Step Input DRV10987 Test"+chr(27)+"[0m")
     controller = DRV10987Controller(port, baud, folder, test_name, test_params, test_specs)
     controller.initialize()
     controller.start()
